@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pallet Box Planner</title>
+    <meta name="theme-color" content="#295f4e" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Pallet Planner" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icon.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="hero">
+        <p class="eyebrow">Warehouse Tool</p>
+        <h1>Pallet Box Planner</h1>
+        <p class="intro">
+          Enter the total number of boxes and get the best stack plan for work.
+        </p>
+      </section>
+
+      <section class="panel">
+        <form id="planner-form" class="planner-form">
+          <label for="box-count">Total boxes</label>
+          <div class="input-row">
+            <input
+              id="box-count"
+              name="box-count"
+              type="number"
+              inputmode="numeric"
+              min="1"
+              step="1"
+              placeholder="e.g. 83"
+              required
+            />
+            <button type="submit">Calculate</button>
+          </div>
+        </form>
+
+        <div class="quick-actions">
+          <button type="button" class="chip" data-value="23">23</button>
+          <button type="button" class="chip" data-value="30">30</button>
+          <button type="button" class="chip" data-value="36">36</button>
+          <button type="button" class="chip" data-value="83">83</button>
+        </div>
+
+        <p id="message" class="message" aria-live="polite">
+          Ready to calculate.
+        </p>
+      </section>
+
+      <section id="results" class="results hidden" aria-live="polite">
+        <div class="summary-grid">
+          <article class="summary-card">
+            <span class="summary-label">Floors</span>
+            <strong id="floor-count" class="summary-value">0</strong>
+          </article>
+          <article class="summary-card">
+            <span class="summary-label">Top Floor</span>
+            <strong id="top-floor" class="summary-value">0</strong>
+          </article>
+          <article class="summary-card">
+            <span class="summary-label">Rule</span>
+            <strong id="rule-used" class="summary-value summary-text">-</strong>
+          </article>
+        </div>
+
+        <section class="plan-panel">
+          <div class="plan-header">
+            <h2>Plan Most to Least</h2>
+            <p id="plan-line">[]</p>
+          </div>
+          <div id="floor-list" class="floor-list"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

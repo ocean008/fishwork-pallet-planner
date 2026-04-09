@@ -1,0 +1,23 @@
+{
+  "name": "Pallet Box Planner",
+  "short_name": "Pallet Planner",
+  "description": "Phone-friendly pallet stacking calculator for work.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3efe4",
+  "theme_color": "#295f4e",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
