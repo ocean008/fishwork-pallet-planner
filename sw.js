@@ -1,4 +1,4 @@
-const CACHE_NAME = "pallet-planner-v1";
+const CACHE_NAME = "pallet-planner-v2";
 const ASSETS = [
   "./",
   "./index.html",
