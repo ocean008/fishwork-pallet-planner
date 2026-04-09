@@ -121,6 +121,13 @@ button:active {
   transform: translateY(1px);
 }
 
+.secondary-button {
+  width: 100%;
+  margin-top: 12px;
+  color: var(--action);
+  background: rgba(41, 95, 78, 0.12);
+}
+
 .message {
   margin-top: 14px;
   min-height: 1.5em;
