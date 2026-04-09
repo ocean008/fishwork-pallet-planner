@@ -9,7 +9,6 @@ const message = document.querySelector("#message");
 const results = document.querySelector("#results");
 const planLine = document.querySelector("#plan-line");
 const floorList = document.querySelector("#floor-list");
-const resetCacheButton = document.querySelector("#reset-cache");
 
 function label(n) {
   if (n === MAX_BOXES) return "filled";
@@ -120,27 +119,14 @@ form.addEventListener("submit", (event) => {
   render(total);
 });
 
-async function clearAppCache() {
-  if ("serviceWorker" in navigator) {
-    const registrations = await navigator.serviceWorker.getRegistrations();
-    await Promise.all(registrations.map((registration) => registration.unregister()));
-  }
-
-  if ("caches" in window) {
-    const keys = await caches.keys();
-    await Promise.all(keys.map((key) => caches.delete(key)));
-  }
-}
-
-resetCacheButton.addEventListener("click", async () => {
-  message.textContent = "Clearing app cache...";
-  await clearAppCache();
-  message.textContent = "App cache cleared. Reloading...";
-  window.location.reload();
-});
-
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", async () => {
-    await clearAppCache();
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(registrations.map((registration) => registration.unregister()));
+
+    if ("caches" in window) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map((key) => caches.delete(key)));
+    }
   });
 }
