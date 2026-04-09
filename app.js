@@ -7,12 +7,8 @@ const form = document.querySelector("#planner-form");
 const input = document.querySelector("#box-count");
 const message = document.querySelector("#message");
 const results = document.querySelector("#results");
-const floorCount = document.querySelector("#floor-count");
-const topFloor = document.querySelector("#top-floor");
-const ruleUsed = document.querySelector("#rule-used");
 const planLine = document.querySelector("#plan-line");
 const floorList = document.querySelector("#floor-list");
-const quickButtons = document.querySelectorAll(".chip");
 
 function label(n) {
   if (n === MAX_BOXES) return "filled";
@@ -75,11 +71,6 @@ function bestStack(total) {
   return [];
 }
 
-function ruleName(floors) {
-  if (floors.length <= 3) return "2-3 floor rule";
-  return "multi-floor rule";
-}
-
 function render(total) {
   const floors = bestStack(total);
   if (!floors.length) {
@@ -89,15 +80,14 @@ function render(total) {
   }
 
   const ordered = [...floors].sort((a, b) => b - a);
+  const top = floors[floors.length - 1];
   message.textContent = `Calculated for ${total} boxes.`;
-  floorCount.textContent = String(floors.length);
-  topFloor.textContent = String(floors[floors.length - 1]);
-  ruleUsed.textContent = ruleName(floors);
-  planLine.textContent = `[${ordered.join(", ")}]`;
+  planLine.textContent = `${floors.length} floors`;
   floorList.innerHTML = "";
 
   ordered.forEach((boxes, index) => {
     const status = label(boxes);
+    const topNote = boxes === top ? '<span class="floor-top">Top Floor</span>' : "";
     const card = document.createElement("article");
     card.className = `floor-card ${status.replace(/\s+/g, "-")}`;
     card.innerHTML = `
@@ -105,7 +95,10 @@ function render(total) {
         <span class="floor-name">Floor ${index + 1}</span>
         <strong class="floor-count">${boxes}</strong>
       </div>
-      <span class="floor-tag">${status}</span>
+      <div class="floor-meta">
+        ${topNote}
+        <span class="floor-tag">${status}</span>
+      </div>
     `;
     floorList.appendChild(card);
   });
@@ -124,13 +117,6 @@ form.addEventListener("submit", (event) => {
   }
 
   render(total);
-});
-
-quickButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    input.value = button.dataset.value;
-    render(Number.parseInt(button.dataset.value, 10));
-  });
 });
 
 if ("serviceWorker" in navigator) {
